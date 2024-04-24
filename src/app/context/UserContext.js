@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../config";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const UserContext = createContext();
 
@@ -27,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    return await signOut(auth);
+    return await signOut(auth).then(() => toast.success("Successfully logged out"));
   };
 
   const signInWithGoogle = async () => {

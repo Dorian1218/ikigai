@@ -7,8 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import {signIn} from "next-auth/react"
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config";
+import { UserAuth } from "../context/UserContext";
 
 
 
@@ -19,11 +18,13 @@ function Page() {
     const [password, setPassword] = React.useState('')
     const [data,setData] = React.useState({email: "", password: ""})
     const router = useRouter()
+    const {login} = UserAuth()
 
     const handleform = async (e) => {
         e.preventDefault()
-
-        signIn("credentials", { ...data, redirect: true, callbackUrl: "/" })
+        login(data.email, data.password)
+        toast.success("Successfully created account")
+        router.push("/home")
     }
 
     return (

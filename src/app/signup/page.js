@@ -6,11 +6,8 @@ import Profilepic from "../../../public/profilepic.jpeg"
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react"
-import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth } from "../config";
-import createUser from "../auth/firebase";
 import { UserAuth } from "../context/UserContext";
+import { addUser } from "../auth/method";
 
 function Page() {
     const [username, setUsername] = React.useState('')
@@ -59,6 +56,7 @@ function Page() {
             createUser(email, password)
             toast.success("Successfully created account")
             router.push("/home")
+            addUser(username, email)
         } catch (error) {
             if (error) {
                 var message = error.message.substring(error.message.indexOf("/") + 1,
