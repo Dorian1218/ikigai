@@ -19,12 +19,11 @@ function Page() {
     const router = useRouter()
     const { createUser, signInWithGoogle, user } = UserAuth()
 
-    const handleGoogleLogin = async (e) => {
+    const handleGoogleLogin =(e) => {
         e.preventDefault()
         try {
-            await signInWithGoogle()
+            signInWithGoogle()
             toast.success("Successfully created account")
-            router.push("/home")
         } catch (error) {
             if (error) {
                 var message = error.message.substring(error.message.indexOf("/") + 1,
@@ -54,10 +53,10 @@ function Page() {
 
     }
 
-    const handleForm = async (e) => {
+    const handleForm = (e) => {
         e.preventDefault()
         try {
-            await createUser(email, password)
+            createUser(email, password)
             toast.success("Successfully created account")
             router.push("/home")
         } catch (error) {

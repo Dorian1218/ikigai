@@ -17,7 +17,7 @@ function Page() {
     console.log(user)
     return (
         <div className="flex flex-col items-center">
-            <Navbar img={user.photoURL} />
+            <Navbar img={user?.photoURL} />
             <div>
                 <Carousel className="w-full max-w-xs">
                     <CarouselContent>

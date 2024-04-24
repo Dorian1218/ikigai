@@ -11,29 +11,30 @@ import {
   signInWithRedirect
 } from "firebase/auth";
 import { auth } from "../config";
+import { useRouter } from "next/navigation";
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (email, password) => {
+    return await createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    return await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    return await signOut(auth);
   };
 
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
+  const signInWithGoogle = async () => {
+    const provider = await new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((re) => {})
-      .catch((err) => {});
+      .then((re) => {window.location.href = "/home"})
+      .catch((err) => {})
   };
 
   useEffect(() => {
