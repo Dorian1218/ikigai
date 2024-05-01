@@ -20,11 +20,16 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const createUser = async (email, password) => {
-    return await createUserWithEmailAndPassword(auth, email, password);
+    return await createUserWithEmailAndPassword(auth, email, password).then(() => {
+      
+    });
   };
 
   const login = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password);
+    return await signInWithEmailAndPassword(auth, email, password).then(() => {
+      window.location.href = "/home"
+
+    });
   };
 
   const logout = async () => {

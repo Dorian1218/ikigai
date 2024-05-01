@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
+import { addUser, getUser, showUser } from "../auth/method"
 
 
 function Page() {
@@ -18,6 +19,7 @@ function Page() {
     const router = useRouter()
     console.log(user)
     if (user) {
+        console.log(showUser())
         return (
             <div className="flex flex-col items-center">
                 <Navbar img={user?.photoURL} />

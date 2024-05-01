@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { UserAuth } from "../context/UserContext";
 import { addUser } from "../auth/method";
+import { updateProfile } from "firebase/auth";
 
 function Page() {
     const [username, setUsername] = React.useState('')
@@ -50,13 +51,11 @@ function Page() {
 
     }
 
-    const handleForm = (e) => {
+    const handleForm = async (e) => {
         e.preventDefault()
         try {
-            createUser(email, password)
+            await createUser(email, password)
             toast.success("Successfully created account")
-            router.push("/home")
-            addUser(username, email)
         } catch (error) {
             if (error) {
                 var message = error.message.substring(error.message.indexOf("/") + 1,
@@ -118,6 +117,7 @@ function Page() {
     }
 
     else {
+        addUser(username, email, user.uid)
         redirect("/home")
     }
 }
