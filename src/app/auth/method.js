@@ -14,8 +14,7 @@ export const showUser = (data) => {
 
 export const getUser = async (id) => {
   const docRef = doc(db, "user", id)
-  const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      showUser(docSnap.data())
-    }
+  await getDoc(docRef).then((doc) => {
+    showUser(doc.data())
+  })
 }

@@ -117,7 +117,13 @@ function Page() {
     }
 
     else {
-        addUser(username, email, user.uid)
+        if (username) {
+            addUser(username, email, user.uid)
+        }
+
+        else {
+            addUser(user.displayName, user.email, user.uid)
+        }
         redirect("/home")
     }
 }
