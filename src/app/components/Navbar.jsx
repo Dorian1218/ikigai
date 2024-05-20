@@ -1,5 +1,6 @@
+"use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdPersonOutline, MdOutlineArticle, MdOutlineLogout } from "react-icons/md";
 import { FaSearch, FaRegHeart } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
@@ -12,10 +13,13 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Input } from "@/components/ui/input"
 
 function Navbar(img) {
 
     const { logout } = UserAuth()
+
+    const [file, setFile] = useState()
 
     const handleLogout = async () => {
         await logout()
@@ -58,7 +62,7 @@ function Navbar(img) {
                                 </div>
                                 <div>
                                     <input type="text" placeholder="Title" className="input input-bordered w-full mt-4" />
-                                    <input type="file" className="file-input file-input-bordered file-input-info w-full mt-4" />
+                                    <input type="file" className="file-input w-full mt-4" onChange={(e) => setFile(e.target.files?.[0])} />
                                     <textarea className="textarea textarea-bordered w-full mt-4" placeholder="Story"></textarea>
                                 </div>
                             </div>
