@@ -17,17 +17,16 @@ function Page() {
     const router = useRouter()
     const { createUser, signInWithGoogle, user } = UserAuth()
 
-    const handleGoogleLogin =(e) => {
+    const handleGoogleLogin = async (e) => {
         e.preventDefault()
         try {
-            signInWithGoogle()
+            await signInWithGoogle()
             toast.success("Successfully created account")
         } catch (error) {
             if (error) {
                 var message = error.message.substring(error.message.indexOf("/") + 1,
                     error.message.lastIndexOf(")"))
                 message = message.replace("-", " ")
-                console.log(message)
                 var output = "" + message.charAt(0).toUpperCase();
                 for (var i = 1; i < message.length; i++) {
                     if (message.charAt(i - 1) == " ") {
@@ -36,7 +35,6 @@ function Page() {
                         output += message.charAt(i);
                     }
                 }
-                console.log(output)
                 return (
                     toast.error(output, {
                         style: {
@@ -61,7 +59,6 @@ function Page() {
                 var message = error.message.substring(error.message.indexOf("/") + 1,
                     error.message.lastIndexOf(")"))
                 message = message.replace("-", " ")
-                console.log(message)
                 var output = "" + message.charAt(0).toUpperCase();
                 for (var i = 1; i < message.length; i++) {
                     if (message.charAt(i - 1) == " ") {
@@ -70,7 +67,6 @@ function Page() {
                         output += message.charAt(i);
                     }
                 }
-                console.log(output)
                 return (
                     toast.error(output, {
                         style: {
@@ -97,7 +93,8 @@ function Page() {
                         </div>
                         <p style={{ color: "#1F1F1F" }}>Sign In With Google</p>
                     </div>
-                    <label className="input input-bordered flex items-center mt-4 gap-2 w-4/5 max-w-sm">
+                    <p className="m-2">or</p>
+                    <label className="input input-bordered flex items-center gap-2 w-4/5 max-w-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
                         <input type="text" className="w-full" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </label>

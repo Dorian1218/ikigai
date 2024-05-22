@@ -11,35 +11,30 @@ import {
   signInWithRedirect
 } from "firebase/auth";
 import { auth } from "../config";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const createUser = async (email, password) => {
-    return await createUserWithEmailAndPassword(auth, email, password).then(() => {
-      
-    });
+    await createUserWithEmailAndPassword(auth, email, password)
   };
 
   const login = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password).then(() => {
-      window.location.href = "/home"
-
-    });
+    await signInWithEmailAndPassword(auth, email, password)
   };
 
   const logout = async () => {
-    return await signOut(auth).then(() => toast.success("Successfully logged out"));
+    await signOut(auth)
   };
 
   const signInWithGoogle = async () => {
     const provider = await new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((re) => {window.location.href = "/home"})
+      .then((re) => {redirect("/home")})
       .catch((err) => {})
   };
 

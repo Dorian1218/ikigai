@@ -14,12 +14,17 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
+import Link from 'next/link';
 
-function Navbar(img) {
+function Navbar() {
+
+    const router = useRouter()
 
     const { logout } = UserAuth()
 
     const [file, setFile] = useState()
+
+    const {user} = UserAuth()
 
     const handleLogout = async () => {
         await logout()
@@ -30,11 +35,11 @@ function Navbar(img) {
         <div className='w-screen bg-black flex justify-between p-5 items-center' style={{ height: "10%" }}>
             <Toaster />
             <TooltipProvider>
-                <p className='text-white text-3xl'>Ikigai</p>
+                <p className='text-white text-3xl select-none hover:cursor-pointer'><Link href={"/home"}>ikigai.</Link></p>
                 <div className='flex items-center justify-center'>
                     <Tooltip>
                         <TooltipTrigger>
-                            <IoMdAdd size={30} className='mr-5' color='#FFFFFF' onClick={() => document.getElementById('my_modal_2').showModal()} />
+                            <IoMdAdd size={30} className='mr-5' color='#FFFFFF' onClick={() => router.push("/home/createarticle")} />
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>Add Story</p>
@@ -48,37 +53,10 @@ function Navbar(img) {
                             <p>Search Story</p>
                         </TooltipContent>
                     </Tooltip>
-                    <dialog id="my_modal_2" className="modal">
-                        <div className="modal-box">
-                        <h3 className="font-bold text-lg">Create Story</h3>
-                            <div className='flex w-full'>
-                                <div className='w-1/2'>
-                                    <ul className="steps steps-vertical">
-                                        <li className="step">Title</li>
-                                        <li className="step">Thumbnail</li>
-                                        <li className="step">Content</li>
-                                        <li className="step">Upload</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <input type="text" placeholder="Title" className="input input-bordered w-full mt-4" />
-                                    <input type="file" className="file-input w-full mt-4" onChange={(e) => setFile(e.target.files?.[0])} />
-                                    <textarea className="textarea textarea-bordered w-full mt-4" placeholder="Story"></textarea>
-                                </div>
-                            </div>
-                            <div className="modal-action">
-                                <form method="dialog">
-                                    {/* if there is a button in form, it will close the modal */}
-                                    <button className="btn">Close</button>
-                                </form>
-                                <button className='btn btn-info' onClick={handleLogout}>Upload</button>
-                            </div>
-                        </div>
-                    </dialog>
                     <div className="dropdown dropdown-end">
                         <Tooltip>
                             <TooltipTrigger>
-                                <Image src={img.img ? img.img : "/profilepic.jpeg"} width={50} height={50} alt="/profilepic.jpeg" className='rounded-full w-10 h-10' role='button' tabIndex={0} />
+                                {user?.photoURL ? <Image src={user?.photoURL} width={50} height={50} alt="/profilepic.jpeg" className='rounded-full w-10 h-10' role='button' tabIndex={0} /> : <Image src={"/profilepic.jpeg"} width={50} height={50} alt="/profilepic.jpeg" className='rounded-full w-10 h-10' role='button' tabIndex={0}/>}
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Profile</p>

@@ -22,7 +22,9 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={oswald.className}>
         <AuthContextProvider>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
         </AuthContextProvider>
       </body>
     </html>
