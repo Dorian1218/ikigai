@@ -10,7 +10,7 @@ import {
   GoogleAuthProvider,
   signInWithRedirect
 } from "firebase/auth";
-import { auth } from "../config";
+import { auth } from "../firebase/config";
 import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 

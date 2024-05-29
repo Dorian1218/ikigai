@@ -15,7 +15,7 @@ function page() {
   const [body, setBody] = useState("")
 
   const handleFile = (e) => {
-    setFile(e.target.files?.[0]);
+    setFile(e.target.files[0]);
   };
 
   useEffect(() => {
@@ -23,9 +23,17 @@ function page() {
       URL.revokeObjectURL(fileUrl);
     }
     if (file) {
+      console.log(file)
+      var newObject  = {
+        'lastModified'     : file.lastModified,
+        'lastModifiedDate' : file.lastModifiedDate,
+        'name'             : file.name,
+        'size'             : file.size,
+        'type'             : file.type
+     };  
+     console.log(JSON.stringify(newObject))
       const url = URL.createObjectURL(file);
       setFileUrl(url);
-      console.log(fileUrl);
     } else {
       setFileUrl(undefined);
     }
@@ -74,7 +82,7 @@ function page() {
               height={400}
               src={fileUrl}
               alt={file.name}
-              className="my-4 ring ring-offset-base-100 ring-offset-2"
+              className="my-4"
             />
           )}
           <div className="flex items-center mb-3">
@@ -133,7 +141,7 @@ function page() {
           <button
             className="btn btn-active btn-secondary"
           >
-            <Link href={{pathname: "/home/createarticle/preview", query: {title: title, image: fileUrl, body: body, tags: tags, tagState: checkedState}}}>Preview</Link>
+            <Link href={{pathname: "/home/createarticle/preview", query: {title: title, imageUrl: fileUrl, image: JSON.stringify(file), body: body, tags: tags, tagState: checkedState}}}>Preview</Link>
           </button>
         </div>
       </div>
