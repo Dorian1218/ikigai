@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 import { IoMdAdd } from "react-icons/io";
 import Link from "next/link"
 
+export const [file, setFile] = useState();
+
 function page() {
   const router = useRouter();
-  const [file, setFile] = useState();
   const [fileUrl, setFileUrl] = useState();
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
@@ -23,15 +24,6 @@ function page() {
       URL.revokeObjectURL(fileUrl);
     }
     if (file) {
-      console.log(file)
-      var newObject  = {
-        'lastModified'     : file.lastModified,
-        'lastModifiedDate' : file.lastModifiedDate,
-        'name'             : file.name,
-        'size'             : file.size,
-        'type'             : file.type
-     };  
-     console.log(JSON.stringify(newObject))
       const url = URL.createObjectURL(file);
       setFileUrl(url);
     } else {
@@ -141,7 +133,7 @@ function page() {
           <button
             className="btn btn-active btn-secondary"
           >
-            <Link href={{pathname: "/home/createarticle/preview", query: {title: title, imageUrl: fileUrl, image: JSON.stringify(file), body: body, tags: tags, tagState: checkedState}}}>Preview</Link>
+            <Link href={{ pathname: "/home/createarticle/preview", query: { title: title, imageUrl: fileUrl, body: body, tags: tags, tagState: checkedState } }}>Preview</Link>
           </button>
         </div>
       </div>

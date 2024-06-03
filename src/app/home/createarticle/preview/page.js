@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { UserAuth } from "@/app/context/UserContext";
 import { uploadArticle } from "@/app/auth/method";
+import { file } from "../page";
 
 function page() {
   const searchParams = useSearchParams();
   const { user } = UserAuth()
-  console.log(JSON.parse(searchParams.get("image")))
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="w-2/3 flex flex-col items-center justify-center p-3">
@@ -42,7 +42,7 @@ function page() {
             )
           })}
         </div>
-        <button className="items-right btn btn-primary mt-3" onClick={() => uploadArticle(searchParams.get("title"), searchParams.get("image"), searchParams.get("body"), user.email)}>Submit</button>
+        <button className="items-right btn btn-primary mt-3" onClick={() => uploadArticle(searchParams.get("title"), file, searchParams.get("body"), user.email)}>Submit</button>
       </div>
     </div>
   );
