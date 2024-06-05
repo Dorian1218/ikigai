@@ -7,9 +7,12 @@ import { UserAuth } from "@/app/context/UserContext";
 import { uploadArticle } from "@/app/auth/method";
 import { file } from "../page";
 
+
+
 function page() {
   const searchParams = useSearchParams();
   const { user } = UserAuth()
+
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="w-2/3 flex flex-col items-center justify-center p-3">
