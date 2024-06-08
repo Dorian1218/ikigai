@@ -1,22 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoMdAdd } from "react-icons/io";
 import Link from "next/link"
+import { FileContext } from "@/app/context/FileContext";
 
-export const [file, setFile] = useState();
 
 function page() {
   const router = useRouter();
   const [fileUrl, setFileUrl] = useState();
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const [file, setFile] = useContext(FileContext)
 
   const handleFile = (e) => {
-    setFile(e.target.files[0]);
+    setFile(e.target.files[0])
+    console.log("TRIGGERED")
   };
 
   useEffect(() => {
@@ -24,6 +26,7 @@ function page() {
       URL.revokeObjectURL(fileUrl);
     }
     if (file) {
+      console.log("TRIGGERED")
       const url = URL.createObjectURL(file);
       setFileUrl(url);
     } else {

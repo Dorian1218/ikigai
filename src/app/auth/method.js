@@ -2,6 +2,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, imageDB } from "@/app/firebase/config";
 import { v4 } from "uuid";
 import { ref, uploadBytes } from "firebase/storage";
+import toast from "react-hot-toast";
 
 export const addUser = async (name, email, id) => {
     await setDoc(doc(db, "user", id), {
@@ -25,11 +26,13 @@ export const uploadArticle = async (title, image, body, email) => {
   const id = v4()
   await setDoc(doc(db, "articles", id), {
     title: title,
-    image: image,
+    image: image.name,
     body: body,
     uploader: email
   }).then(() => {
     const imageRef = ref(imageDB, `image/${id}`)
     uploadBytes(imageRef, image)
+  }).then(() => {
+    toast.success("Your article was successfully uploaded. Congrats!")
   })
 }
